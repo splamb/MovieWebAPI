@@ -24,7 +24,7 @@ namespace MovieWebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return Ok(await _context.Movie.ToListAsync());
+            return Ok(await _context.Movies.ToListAsync());
         }
 
         [HttpPost]
@@ -38,15 +38,15 @@ namespace MovieWebAPI.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public async Task<IActionResult> Update(int Id, string Title, string Genre, int Runtime)
+        public async Task<IActionResult> Update(Movie updateMovie)
         {
-            foreach (Movie movie in _context.Movie.ToList())
+            foreach (Movie movie in _context.Movies.ToList())
             {
-                if (movie.Id == Id)
+                if (movie.Id == updateMovie.Id)
                 {
-                    movie.Title = Title;
-                    movie.Genre = Genre;
-                    movie.Runtime = Runtime;
+                    movie.Title = updateMovie.Title;
+                    movie.Genre = updateMovie.Genre;
+                    movie.Runtime = updateMovie.Runtime;
                 }
             }
             await _context.SaveChangesAsync();
@@ -57,10 +57,10 @@ namespace MovieWebAPI.Controllers
         [Route("Delete")]
         public async Task<IActionResult> Delete(int Id)
         {
-            var deleteMovie = _context.Movie.FirstOrDefault(m => m.Id == Id);
+            var deleteMovie = _context.Movies.FirstOrDefault(m => m.Id == Id);
             if (deleteMovie != null)
             {
-                _context.Movie.Remove(deleteMovie);
+                _context.Movies.Remove(deleteMovie);
             }
 
             await _context.SaveChangesAsync();

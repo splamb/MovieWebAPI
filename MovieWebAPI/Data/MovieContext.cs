@@ -14,6 +14,6 @@ namespace MovieWebAPI.Data
         {
         }
 
-        public DbSet<MovieWebAPI.Movie> Movie { get; set; }
+        public DbSet<MovieWebAPI.Movie> Movies { get; set; }
     }
 }
